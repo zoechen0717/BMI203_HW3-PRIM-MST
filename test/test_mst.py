@@ -79,8 +79,7 @@ def test_mst_student():
     assert np.isclose(np.sum(g.mst) / 2, 16), "Incorrect MST weight for small graph"
 
     # Load and test Single-Node Graph
-    single_node_path = "./data/single_node.csv"
-    single_node_mat = np.loadtxt(single_node_path, delimiter=",")
+    single_node_mat = np.array([[0]])
     g_single = Graph(single_node_mat)
     g_single.construct_mst()
     assert np.sum(g_single.mst) == 0, "MST for single-node graph should have no edges"
