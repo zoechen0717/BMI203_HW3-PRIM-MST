@@ -4,15 +4,15 @@ from mst import Graph
 from sklearn.metrics import pairwise_distances
 
 
-def check_mst(adj_mat: np.ndarray, 
-              mst: np.ndarray, 
-              expected_weight: int, 
+def check_mst(adj_mat: np.ndarray,
+              mst: np.ndarray,
+              expected_weight: int,
               allowed_error: float = 0.0001):
     """
-    
+
     Helper function to check the correctness of the adjacency matrix encoding an MST.
-    Note that because the MST of a graph is not guaranteed to be unique, we cannot 
-    simply check for equality against a known MST of a graph. 
+    Note that because the MST of a graph is not guaranteed to be unique, we cannot
+    simply check for equality against a known MST of a graph.
 
     Arguments:
         adj_mat: adjacency matrix of full graph
@@ -38,9 +38,9 @@ def check_mst(adj_mat: np.ndarray,
 
 def test_mst_small():
     """
-    
+
     Unit test for the construction of a minimum spanning tree on a small graph.
-    
+
     """
     file_path = './data/small.csv'
     g = Graph(file_path)
@@ -50,7 +50,7 @@ def test_mst_small():
 
 def test_mst_single_cell_data():
     """
-    
+
     Unit test for the construction of a minimum spanning tree using single cell
     data, taken from the Slingshot R package.
 
@@ -67,8 +67,28 @@ def test_mst_single_cell_data():
 
 def test_mst_student():
     """
-    
+
     TODO: Write at least one unit test for MST construction.
-    
+
     """
-    pass
+    # Load and test Small Custom Graph
+    small_graph_path = "./data/small_graph.csv"
+    adj_mat = np.loadtxt(small_graph_path, delimiter=",")
+    g = Graph(adj_mat)
+    g.construct_mst()
+    assert np.isclose(np.sum(g.mst) / 2, 16), "Incorrect MST weight for small graph"
+
+    # Load and test Single-Node Graph
+    single_node_path = "./data/single_node.csv"
+    single_node_mat = np.loadtxt(single_node_path, delimiter=",")
+    g_single = Graph(single_node_mat)
+    g_single.construct_mst()
+    assert np.sum(g_single.mst) == 0, "MST for single-node graph should have no edges"
+
+    # Load and test Fully Connected Graph with Identical Weights
+    fully_connected_path = "./data/fully_connected.csv"
+    full_adj_mat = np.loadtxt(fully_connected_path, delimiter=",")
+    g_full = Graph(full_adj_mat)
+    g_full.construct_mst()
+    expected_weight = (full_adj_mat.shape[0] - 1) * 10
+    assert np.isclose(np.sum(g_full.mst) / 2, expected_weight), "Incorrect MST weight for fully connected graph"
