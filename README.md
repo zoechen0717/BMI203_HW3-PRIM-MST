@@ -15,38 +15,11 @@ The implementation includes:
 ## **📖 Method Description**
 This method is implemented based on **Prim’s Algorithm**. The pseudocode used in this project is adapted from **[freeCodeCamp](https://www.freecodecamp.org/news/prims-algorithm-explained-with-pseudocode/)**, while the Python implementation of the MST adjacency matrix is developed based on **[GeeksforGeeks](https://www.geeksforgeeks.org/prims-algorithm-in-python/)**.
 
-1. **Initialize Variables**  
-   - `num_nodes`: Get the number of nodes from the adjacency matrix.
-   - `his`: A list to store the **parent node** of each vertex in the MST.
-   - `mst_track`: A boolean list to track whether a node is already in the MST.
-   - `min_heap`: A **priority queue** (min heap) to keep track of **edges with the smallest weight**.
-   - `key`: A list that holds the **minimum edge weight** required to connect each node to the MST.  
-   - **Start from Node `0`**:
-     - Set `key[0] = 0` (indicating it is included in MST first).
-     - Push `(0, 0)` into `min_heap`, where `0` is the weight, and `0` is the node.
-
-2. **Iterate Until All Nodes are Added to the MST**  
-   - **Extract the minimum-weight edge** from the heap.
-   - **If the node is already included in MST, skip it**.
-   - **Mark the node as visited** (`mst_track[u] = True`).
-   - **Check all its neighbors**:
-     - If there is an edge (`edge_weight > 0`).
-     - If the neighbor **is not already in the MST** (`not mst_track[v]`).
-     - If the edge weight is **smaller** than the current stored weight (`edge_weight < key[v]`):
-       - **Update `key[v]`** to `edge_weight` (select the smallest edge).
-       - **Push `(edge_weight, v)` into the min heap**.
-       - **Record `u` as the parent of `v`** in `his[v]`.
-
-3. **Build the MST Adjacency Matrix**  
-   - **Create an empty matrix** (`self.mst = np.zeros((num_nodes, num_nodes))`).
-   - **Loop through the `his` parent array**:
-     - For each node `v` (starting from `1`), find its parent `u`.
-     - **Set the edge in the MST matrix**:
-       ```python
-       self.mst[u][v] = self.adj_mat[u][v]
-       self.mst[v][u] = self.adj_mat[u][v]  # Ensure symmetry
-       ```
-   - The final `self.mst` matrix represents the **Minimum Spanning Tree**.
+- **Initialize the MST** by selecting an arbitrary starting node. Keep track of visited nodes and the minimum edge weights needed to connect each node to the MST.
+- **Use a priority queue (min heap)** to efficiently select the smallest edge that connects a new node to the MST.
+- **Expand the MST step by step** by adding the minimum-weight edge, marking the new node as visited, and updating the smallest known edges for its neighbors.
+- **Repeat the process until all nodes are included**, ensuring that exactly \(n-1\) edges are in the MST.
+- **Construct the MST adjacency matrix**, ensuring it correctly represents the final tree and maintains symmetry for the undirected graph.
 
 #### **💡 Key Features**
 - Uses **Prim's Algorithm** with a **priority queue (heap)** for efficiency.

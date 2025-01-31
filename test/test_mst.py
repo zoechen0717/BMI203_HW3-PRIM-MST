@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 from mst import Graph
 from sklearn.metrics import pairwise_distances
-
+from scipy.sparse.csgraph import connected_components
 
 def check_mst(adj_mat: np.ndarray,
               mst: np.ndarray,
@@ -33,8 +33,19 @@ def check_mst(adj_mat: np.ndarray,
     for i in range(mst.shape[0]):
         for j in range(i+1):
             total += mst[i, j]
-    assert approx_equal(total, expected_weight), 'Proposed MST has incorrect expected weight'
+    assert approx_equal(total, expected_weight)
 
+    #Check if MST has exactly (n-1) edges
+    num_nodes = mst.shape[0]
+    num_edges = np.sum(mst > 0) // 2  # the adjacency matrix is symmetric
+    assert num_edges == num_nodes - 1
+
+    #Check if MST is connected
+    n_components, _ = connected_components(mst, directed=False)
+    assert n_components == 1
+
+    #Check if MST matrix is symmetric
+    assert np.allclose(mst, mst.T)
 
 def test_mst_small():
     """
@@ -71,20 +82,20 @@ def test_mst_student():
     TODO: Write at least one unit test for MST construction.
 
     """
-    # Load and test Small Custom Graph
+    #Load and test Small Custom Graph
     small_graph_path = "./data/small_graph.csv"
     adj_mat = np.loadtxt(small_graph_path, delimiter=",")
     g = Graph(adj_mat)
     g.construct_mst()
     assert np.isclose(np.sum(g.mst) / 2, 16), "Incorrect MST weight for small graph"
 
-    # Load and test Single-Node Graph
+    #Load and test Single-Node Graph
     single_node_mat = np.array([[0]])
     g_single = Graph(single_node_mat)
     g_single.construct_mst()
     assert np.sum(g_single.mst) == 0, "MST for single-node graph should have no edges"
 
-    # Load and test Fully Connected Graph with Identical Weights
+    #Load and test Fully Connected Graph with Identical Weights
     fully_connected_path = "./data/fully_connected.csv"
     full_adj_mat = np.loadtxt(fully_connected_path, delimiter=",")
     g_full = Graph(full_adj_mat)
