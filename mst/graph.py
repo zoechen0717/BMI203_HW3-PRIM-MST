@@ -92,3 +92,4 @@ class Graph:
             u = his[v]
             if u != -1:
                 self.mst[u][v] = self.adj_mat[u][v]
+                self.mst[v][u] = self.adj_mat[u][v]  # Ensure symmetry
