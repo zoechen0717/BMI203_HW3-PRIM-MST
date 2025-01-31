@@ -87,13 +87,13 @@ def test_mst_student():
     adj_mat = np.loadtxt(small_graph_path, delimiter=",")
     g = Graph(adj_mat)
     g.construct_mst()
-    assert np.isclose(np.sum(g.mst) / 2, 16), "Incorrect MST weight for small graph"
+    assert np.isclose(np.sum(g.mst) / 2, 16)
 
     #Load and test Single-Node Graph
     single_node_mat = np.array([[0]])
     g_single = Graph(single_node_mat)
     g_single.construct_mst()
-    assert np.sum(g_single.mst) == 0, "MST for single-node graph should have no edges"
+    assert np.sum(g_single.mst) == 0
 
     #Load and test Fully Connected Graph with Identical Weights
     fully_connected_path = "./data/fully_connected.csv"
@@ -101,4 +101,4 @@ def test_mst_student():
     g_full = Graph(full_adj_mat)
     g_full.construct_mst()
     expected_weight = (full_adj_mat.shape[0] - 1) * 10
-    assert np.isclose(np.sum(g_full.mst) / 2, expected_weight), "Incorrect MST weight for fully connected graph"
+    assert np.isclose(np.sum(g_full.mst) / 2, expected_weight)
