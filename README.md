@@ -1,12 +1,14 @@
 # HW 3: Prim's algorithm
 
-In this assignment, you'll implement Prim's algorithm, a non-trivial greedy algorithm used to construct minimum spanning trees. 
+![BuildStatus](https://github.com/zoechen0717/BMI203_HW3-PRIM-MST/workflows/badge.svg?event=push)
+
+In this assignment, you'll implement Prim's algorithm, a non-trivial greedy algorithm used to construct minimum spanning trees.
 
 ## Tasks
 
 ### Coding
 
-* [TODO] Complete the `construct_mst` method found in `mst/graph.py`. All necessary modules have already been imported. You should not rely on any other dependencies (e.g. networkx). 
+* [TODO] Complete the `construct_mst` method found in `mst/graph.py`. All necessary modules have already been imported. You should not rely on any other dependencies (e.g. networkx).
 
 ### Development
 
@@ -17,7 +19,7 @@ In this assignment, you'll implement Prim's algorithm, a non-trivial greedy algo
 
 ## Getting started
 
-Fork this repository to your own GitHub account. Work on the codebase locally and commit changes to your forked repository. 
+Fork this repository to your own GitHub account. Work on the codebase locally and commit changes to your forked repository.
 
 You will need following packages:
 
@@ -37,8 +39,8 @@ Push your code to GitHub with passing unit tests, and submit a link to your repo
 
 * Minimum spanning tree construction works correctly (6)
     * Correct implementation of Prim's algorithm (4)
-    * Produces expected output on small graph (1) 
-    * Produces expected output on single cell data (1) 
+    * Produces expected output on small graph (1)
+    * Produces expected output on single cell data (1)
 
 ### Unit tests (3 points)
 
